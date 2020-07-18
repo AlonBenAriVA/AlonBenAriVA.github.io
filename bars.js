@@ -12,7 +12,7 @@ fetch('cytograph.json').then(response => {
  var diamond_data = [
    {
      y: diamond.map(function(x){ return x.name}),
-     x: diamond.map(function(x) { return x.dollar}),
+     x: diamond.map(function(x) { return 1000*x.dollar}),
      type:'bar',
      orientation:'h'
    }
