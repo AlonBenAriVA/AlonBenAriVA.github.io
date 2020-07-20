@@ -8,7 +8,7 @@ fetch('cytograph.json').then(response => {
 
  
  diamond = diamond.sort((a, b) => (a.dollar > b.dollar) ? 1 : -1)
- console.log(diamond);
+
  var diamond_data = [
    {
      y: diamond.map(function(x){ return x.name}),
@@ -18,6 +18,21 @@ fetch('cytograph.json').then(response => {
    }
  ];
 
- Plotly.newPlot('InflowBar', diamond_data)
+ Plotly.newPlot('InflowBar', diamond_data);
 
-})
+
+
+ var triangle = data.nodes.filter(function(x){return x.data.shape == 'triangle'}).map(node => ({ 'name':node.data.name, 'dollar': node.data.balance, 'donor_id':node.data.id}));
+ 
+ triangle = triangle.sort((a, b) => (a.dollar > b.dollar) ? 1 : -1);
+
+ var triangle_data = [
+  {
+    y: triangle.map(function(x){ return x.name}),
+    x: triangle.map(function(x) { return 1000*x.dollar}),
+    type:'bar',
+    orientation:'h'
+  }
+];
+Plotly.newPlot('DonorBar', triangle_data);
+});
